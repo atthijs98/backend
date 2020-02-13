@@ -1,13 +1,13 @@
 import models from '../models'
 import {hash, compare} from 'bcrypt'
 
+
 interface User {
   id: string
   email: string
-  first_name: string
-  middle_name: string
-  last_name: string
+  name:string
   password: string
+  user_role: string
   created_at: Date
   updated_at: Date
 }
@@ -53,7 +53,7 @@ const isPasswordCorrect = async (password: string, originalPassword: string): Pr
  * @param last_name
  * @param password
  */
-const createUser = async (email: string, first_name: string, middle_name: string, last_name: string, password: string): Promise<User> => {
+const createUser = async (email: string, name: string, password: string, user_role: string): Promise<User> => {
   const user = await findUserByEmail(email);
 
   if (user) {
@@ -65,9 +65,8 @@ const createUser = async (email: string, first_name: string, middle_name: string
   return await models.User.create({
     email,
     password: encPassword,
-    first_name,
-    middle_name,
-    last_name
+    name,
+    user_role
   })
 };
 

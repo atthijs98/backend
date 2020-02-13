@@ -9,15 +9,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    first_name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    middle_name: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    last_name: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
@@ -25,13 +17,19 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: false
     },
+    user_role: {
+      type: DataTypes.STRING(6),
+      allowNull: false
+    },
     created_at: {
       type: DataTypes.DATE,
+      defaultValue: new Date(),
       allowNull: false
     },
     updated_at: {
       type: DataTypes.DATE,
+      defaultValue: new Date(),
       allowNull: false
     }
-  })
+  }, {timestamps: false})
 }

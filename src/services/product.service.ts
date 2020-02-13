@@ -51,9 +51,9 @@ const deleteProductById = async(id: number): Promise<Product> => {
 /**
  * Inserts product in database
  *
- * @param {string} enTitle
- * @param {string} originalTitle
- * @param {string} romanizedOriginalTitle
+ * @param {string} en_title
+ * @param {string} original_title
+ * @param {string} romanized_original_title
  * @param {string} runtime
  * @param {string} poster
  * @param {string} plot
@@ -61,16 +61,16 @@ const deleteProductById = async(id: number): Promise<Product> => {
  * @param {number} price
  *
  */
-const createProduct = async (enTitle: string, originalTitle: string, romanizedOriginalTitle: string, runtime: string, poster: string, plot: string, year: Date, price: number): Promise<Product> => {
-    const product = await findUniqueProduct(enTitle, year);
+const createProduct = async (en_title: string, original_title: string, romanized_original_title: string, runtime: string, poster: string, plot: string, year: Date, price: number): Promise<Product> => {
+    const product = await findUniqueProduct(en_title, year);
 
     if (product) {
         return null
     }
     return await models.Product.create({
-        enTitle,
-        originalTitle,
-        romanizedOriginalTitle,
+        en_title,
+        original_title,
+        romanized_original_title,
         runtime,
         poster,
         plot,
@@ -82,13 +82,13 @@ const createProduct = async (enTitle: string, originalTitle: string, romanizedOr
 /**
  * Checks and returns a product by a combination of en_title and year
  *
- * @param {string} enTitle
+ * @param {string} en_title
  * @param {date} year
  */
-const findUniqueProduct = async(enTitle: string, year: Date): Promise<Product> => {
+const findUniqueProduct = async(en_title: string, year: Date): Promise<Product> => {
     return await models.Product.findOne({
         where: {
-            en_title: enTitle,
+            en_title: en_title,
             year: year
         }
     })
@@ -98,17 +98,17 @@ const findUniqueProduct = async(enTitle: string, year: Date): Promise<Product> =
  * Updates product
  *
  * @param id
- * @param enTitle
- * @param originalTitle
- * @param romanizedOriginalTitle
+ * @param en_title
+ * @param original_title
+ * @param romanized_original_title
  * @param runtime
  * @param poster
  * @param plot
  * @param year
  * @param price
  */
-const updateProduct = async(id: number, enTitle: string, originalTitle: string, romanizedOriginalTitle: string, runtime: string, poster: string, plot: string, year: Date, price: number): Promise<Product> => {
-    return await models.Product.update({en_title: enTitle, original_title: originalTitle, romanized_original_title: romanizedOriginalTitle, runtime: runtime, poster: poster, plot: plot, year: year, price: price}, {
+const updateProduct = async(id: number, en_title: string, original_title: string, romanized_original_title: string, runtime: string, poster: string, plot: string, year: Date, price: number): Promise<Product> => {
+    return await models.Product.update({en_title: en_title, original_title: original_title, romanized_original_title: romanized_original_title, runtime: runtime, poster: poster, plot: plot, year: year, price: price}, {
        where: {
            id: id
        }

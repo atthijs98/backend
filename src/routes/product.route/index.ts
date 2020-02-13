@@ -7,35 +7,35 @@ import {insertProduct, editProduct} from "./post.product";
 
 const getAllProductsRoute = new Route({
     controller: getProducts,
-    middleware: [authMiddleware],
+    middleware: [],
     method: 'get',
     slug: '/product'
 });
 
 const getProductRoute = new Route({
    controller: getProductById,
-   middleware: [authMiddleware],
+   middleware: [],
    method: 'get',
    slug: '/product/:id'
 });
 
 const deleteProductRoute = new Route({
    controller: deleteProduct,
-   middleware: [authMiddleware],
+   middleware: [],
    method: 'delete',
    slug: '/product/:id'
 });
 
 const insertProductRoute = new Route({
    controller: insertProduct,
-   middleware: [authMiddleware],
+   middleware: [],
    method: 'post',
    slug: '/product'
 });
 
 const updateProductRoute = new Route({
     controller: editProduct,
-    middleware: [authMiddleware],
+    middleware: [],
     method: 'post',
     slug: '/product'
 });

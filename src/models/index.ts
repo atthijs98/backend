@@ -1,4 +1,4 @@
-import * as Sequelize from 'sequelize'
+import {Sequelize} from 'sequelize'
 import * as fs from 'fs'
 import * as env from 'dotenv'
 import * as path from 'path'
@@ -15,7 +15,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     collate: 'utf8mb4_unicode_ci',
   },
   logging: false,
-  operatorAliases: false
+  //operatorAliases: false
 });
 
 fs

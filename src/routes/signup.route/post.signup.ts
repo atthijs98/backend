@@ -8,19 +8,20 @@ import * as jwt from 'jsonwebtoken'
  * @param {response} res
  */
 const postSignup = async (req, res) => {
-  const {email, first_name, middle_name, last_name, password} = req.body;
+  console.log(req.body);
+  const {email, name, password, user_role} = req.body;
 
-  if (!email || !password || !first_name || last_name) {
+  if (!email || !password || !name || !user_role) {
     return res.status(400).json({status: 400, message: 'email, name of password is null'})
   }
 
-  const user = await createUser(email, first_name, middle_name, last_name, password);
+  const user = await createUser(email, name, password, user_role);
 
   if (!user) {
     return res.status(400).json({status: 400, message: 'email is al in gebruik'})
   }
 
-  const token = jwt.sign({id: user.id, email: user.email}, process.env.JWT_SECRET);
+  const token = jwt.sign({id: user.id, email: user.email, role: user.user_role}, process.env.JWT_SECRET);
 
   return res.status(200).json({status: 200, result: {token: `JWT ${token}`}})
 };

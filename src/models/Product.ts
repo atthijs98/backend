@@ -2,7 +2,7 @@ export default (sequelize, DataTypes) => {
     return sequelize.define("Product", {
         id: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
+            autoIncrement: true,
             primaryKey: true
         },
         en_title: {
@@ -31,6 +31,7 @@ export default (sequelize, DataTypes) => {
         },
         year: {
             type: DataTypes.DATE,
+            format: 'YYYY',
             allowNull: false
         },
         price: {
@@ -39,12 +40,14 @@ export default (sequelize, DataTypes) => {
         },
         created_at: {
             type: DataTypes.DATE,
-            allowNull: true
+            defaultValue: new Date(),
+            allowNull: false
         },
         updated_at: {
             type: DataTypes.DATE,
-            allowNull: true
+            defaultValue: new Date(),
+            allowNull: false
         }
-    })
+    }, {timestamps: false})
 
 }

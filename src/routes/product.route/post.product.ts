@@ -8,7 +8,7 @@ import {createProduct, updateProduct} from "../../services/product.service";
 
 const insertProduct = async (req, res) => {
     const {en_title, original_title, romanized_original_title, runtime, poster, plot, year, price} = req.body;
-    const product = await createProduct(en_title, original_title, romanized_original_title, runtime,poster, plot, year, price);
+    const product = await createProduct(en_title, original_title, romanized_original_title, runtime,poster, plot, new Date(year), price);
     return res.json({status: 200, result: {product: product}});
 };
 

@@ -23,10 +23,10 @@ const postLogin = async (req, res) => {
   const passwordCorrect = await isPasswordCorrect(password, user.password);
 
   if (!passwordCorrect) {
-    return res.status(400).json({status: 400, message: 'password is verkeerd'})
+    return res.status(400).json({status: 400, message: 'wachtwoord is verkeerd'})
   }
 
-  const token = jwt.sign({id: user.id, email: user.email}, process.env.JWT_SECRET);
+  const token = jwt.sign({id: user.id, email: user.email, role: user.user_role}, process.env.JWT_SECRET);
 
   return res.status(200).json({status: 200, result: {token: `JWT ${token}`}})
 };
