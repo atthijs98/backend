@@ -29,6 +29,7 @@ fs
   });
 
 Object.keys(db).forEach(modelName => {
+  //let mn = modelName.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

@@ -1,6 +1,8 @@
 import models from '../models';
 import {hash, compare} from 'bcrypt';
 import {findUserByEmail} from "./user.service";
+import ProductDirector from "../models/ProductDirector";
+import ProductImage from "../models/ProductImage";
 
 interface Product {
     id: number
@@ -24,7 +26,11 @@ const findProductById = async(id:number): Promise<Product> => {
     return await models.Product.findOne({
         where: {
             id: id
-        }
+        },
+        include: [
+            {model: models.ProductDirector, as: 'directors'},
+            {model: models.ProductImage, as: 'images'}
+        ]
     })
 };
 
@@ -33,7 +39,12 @@ const findProductById = async(id:number): Promise<Product> => {
  *
  */
 const getAllProducts = async(): Promise<Product[]> => {
-    return await models.Product.findAll();
+    return await models.Product.findAll({
+        include: [
+            {model: models.ProductDirector, as: 'directors'},
+            {model: models.ProductImage, as: 'images'}
+        ]
+    });
 };
 
 /**
@@ -44,7 +55,11 @@ const deleteProductById = async(id: number): Promise<Product> => {
     return await models.Product.destroy({
         where: {
             id: id
-        }
+        },
+        include: [
+            {model: models.ProductDirector, as: 'directors'},
+            {model: models.ProductImage, as: 'images'}
+        ]
     });
 };
 
@@ -68,14 +83,14 @@ const createProduct = async (en_title: string, original_title: string, romanized
         return null
     }
     return await models.Product.create({
-        en_title,
-        original_title,
-        romanized_original_title,
-        runtime,
-        poster,
-        plot,
-        year,
-        price
+        en_title: en_title,
+        original_title: original_title,
+        romanized_original_title: romanized_original_title,
+        runtime: runtime,
+        poster: poster,
+        plot: plot,
+        year: year,
+        price: price
     })
 };
 

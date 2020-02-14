@@ -1,34 +1,46 @@
-export default (sequelize, DataTypes) => {
-    return sequelize.define("ProductDirector", {
+const Product = require('./Product');
+const { Sequelize, DataTypes } = require('sequelize');
+
+export default(sequelize, DataTypes) => {
+    const ProductDirector = sequelize.define('ProductDirector', {
         id: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
+            autoIncrement: true,
             primaryKey: true
         },
-        product_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        first_name: {
-            type: DataTypes.STRING(255),
-            allowNull: false
-        },
-        middle_name: {
-            type: DataTypes.STRING(255),
-            allowNull: true
-        },
-        last_name: {
+        // product_id: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     references: {
+        //         model: 'Product',
+        //         key: 'id'
+        //     }
+        // },
+        name: {
             type: DataTypes.STRING(255),
             allowNull: false
         },
         created_at: {
             type: DataTypes.DATE,
-            allowNull: true
+            defaultValue: new Date(),
+            allowNull: false
         },
         updated_at: {
             type: DataTypes.DATE,
-            allowNull: true
+            defaultValue: new Date(),
+            allowNull: false
         }
-    })
+    }, {timestamps: false, tableName: 'product_director'});
 
-}
+    ProductDirector.associate = function (models) {
+        models.ProductDirector.belongsTo(models.Product, {
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false
+            }
+        })
+    }
+
+    return ProductDirector;
+};
+

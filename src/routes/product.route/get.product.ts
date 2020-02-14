@@ -8,7 +8,7 @@ import {findProductById, getAllProducts} from "../../services/product.service";
 
 const getProductById = async (req, res) => {
     const id = req.params.id;
-    const product = await findProductById(id);
+    let product = await findProductById(id);
     return res.json({status: 200, result: {product: product}});
 };
 

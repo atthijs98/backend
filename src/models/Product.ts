@@ -1,5 +1,10 @@
-export default (sequelize, DataTypes) => {
-    return sequelize.define("Product", {
+const ProductDirector = require('./ProductDirector');
+const ProductImage = require('./ProductImage');
+import Genre from "./Genre";
+const { Sequelize, DataTypes } = require('sequelize');
+
+export default(sequelize, DataTypes) => {
+    const Product = sequelize.define('Product', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -26,8 +31,8 @@ export default (sequelize, DataTypes) => {
             allowNull: false
         },
         plot: {
-          type: DataTypes.TEXT,
-          allowNull: false
+            type: DataTypes.TEXT,
+            allowNull: false
         },
         year: {
             type: DataTypes.DATE,
@@ -48,6 +53,12 @@ export default (sequelize, DataTypes) => {
             defaultValue: new Date(),
             allowNull: false
         }
-    }, {timestamps: false})
+    }, {timestamps: false});
 
-}
+    Product.associate = function (models) {
+        models.Product.hasMany(models.ProductDirector,{as: 'directors'});
+        models.Product.hasMany(models.ProductImage, {as: 'images'});
+    }
+
+    return Product;
+};

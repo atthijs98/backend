@@ -1,8 +1,10 @@
+import Product from "./Product";
+
 export default (sequelize, DataTypes) => {
     return sequelize.define("Genre", {
         id: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
+            autoIncrement: true,
             primaryKey: true
         },
         name: {
@@ -11,12 +13,14 @@ export default (sequelize, DataTypes) => {
         },
         created_at: {
             type: DataTypes.DATE,
-            allowNull: true
+            defaultValue: new Date(),
+            allowNull: false
         },
         updated_at: {
             type: DataTypes.DATE,
-            allowNull: true
+            defaultValue: new Date(),
+            allowNull: false
         }
-    })
+    }, {timestamps: false})//.belongsToMany(Product, {through: 'ProductHasGenre'});
 
 }
