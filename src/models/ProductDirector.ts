@@ -35,6 +35,7 @@ export default(sequelize, DataTypes) => {
     ProductDirector.associate = function (models) {
         models.ProductDirector.belongsTo(models.Product, {
             onDelete: "CASCADE",
+            onUpdate: "CASCADE",
             foreignKey: {
                 allowNull: false
             }

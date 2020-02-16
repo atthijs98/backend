@@ -43,6 +43,10 @@ export default(sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(6,2),
             allowNull: false
         },
+        trailer: {
+            type: DataTypes.STRING(85),
+            allowNull: false
+        },
         created_at: {
             type: DataTypes.DATE,
             defaultValue: new Date(),

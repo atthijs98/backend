@@ -9,6 +9,8 @@ import {
   updateProductRoute
 } from "./product.route";
 import {deleteUserRoute, getAllUsersRoute, getUserRoute} from "./user.route";
+import {deleteImageRoute} from "./image.route";
+import {deleteDirectorRoute} from "./director.route";
 
 export default [
   getIndexRoute,
@@ -21,7 +23,9 @@ export default [
   updateProductRoute,
   deleteUserRoute,
   getUserRoute,
-  getAllUsersRoute
+  getAllUsersRoute,
+  deleteImageRoute,
+  deleteDirectorRoute
 ]
 
 

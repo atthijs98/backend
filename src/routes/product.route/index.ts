@@ -37,7 +37,7 @@ const updateProductRoute = new Route({
     controller: editProduct,
     middleware: [],
     method: 'post',
-    slug: '/product'
+    slug: '/product/:id'
 });
 
 export {

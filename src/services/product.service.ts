@@ -1,8 +1,8 @@
 import models from '../models';
 import {hash, compare} from 'bcrypt';
 import {findUserByEmail} from "./user.service";
-import ProductDirector from "../models/ProductDirector";
-import ProductImage from "../models/ProductImage";
+import ProductDirector from '../models/ProductDirector';
+import ProductImage from '../models/ProductImage';
 
 interface Product {
     id: number
@@ -14,6 +14,22 @@ interface Product {
     plot: string
     year: Date
     price: number
+    trailer: string
+    created_at: Date
+    updated_at: Date
+}
+
+interface ProductDirector {
+    id: number
+    name: string
+    created_at: Date
+    updated_at: Date
+
+}
+
+interface ProductImage {
+    id: number
+    path: string
     created_at: Date
     updated_at: Date
 }
@@ -76,7 +92,7 @@ const deleteProductById = async(id: number): Promise<Product> => {
  * @param {number} price
  *
  */
-const createProduct = async (en_title: string, original_title: string, romanized_original_title: string, runtime: string, poster: string, plot: string, year: Date, price: number): Promise<Product> => {
+const createProduct = async (en_title: string, original_title: string, romanized_original_title: string, runtime: string, poster: string, plot: string, year: Date, price: number, trailer: string, directors: ProductDirector[], images: ProductImage[]): Promise<Product> => {
     const product = await findUniqueProduct(en_title, year);
 
     if (product) {
@@ -90,8 +106,16 @@ const createProduct = async (en_title: string, original_title: string, romanized
         poster: poster,
         plot: plot,
         year: year,
-        price: price
-    })
+        price: price,
+        trailer: trailer,
+        directors: directors,
+        images: images
+    }, {
+       include: [
+           {model: models.ProductDirector, as: 'directors'},
+           {model: models.ProductImage, as: 'images'}
+       ]
+    });
 };
 
 /**
@@ -122,11 +146,17 @@ const findUniqueProduct = async(en_title: string, year: Date): Promise<Product> 
  * @param year
  * @param price
  */
-const updateProduct = async(id: number, en_title: string, original_title: string, romanized_original_title: string, runtime: string, poster: string, plot: string, year: Date, price: number): Promise<Product> => {
-    return await models.Product.update({en_title: en_title, original_title: original_title, romanized_original_title: romanized_original_title, runtime: runtime, poster: poster, plot: plot, year: year, price: price}, {
+const updateProduct = async(id: number, en_title: string, original_title: string, romanized_original_title: string, runtime: string, poster: string, plot: string, year: Date, price: number, trailer: string,directors: ProductDirector[], images: ProductImage[]): Promise<Product> => {
+
+    return await models.Product.update({en_title: en_title, original_title: original_title, romanized_original_title: romanized_original_title, runtime: runtime, poster: poster, plot: plot, year: year, price: price, trailer: trailer,directors: directors, images: images}, {
        where: {
            id: id
        }
+    }, {
+        include: [
+            {model: models.ProductDirector, as: 'directors'},
+            {model: models.ProductImage, as: 'images'}
+        ]
     });
 };
 

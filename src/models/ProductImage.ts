@@ -16,10 +16,6 @@ export default(sequelize, DataTypes) => {
         //         key: 'id'
         //     }
         // },
-        name: {
-            type: DataTypes.STRING(55),
-            allowNull: false
-        },
         path: {
             type: DataTypes.STRING(255),
             allowNull: false
@@ -37,6 +33,7 @@ export default(sequelize, DataTypes) => {
     ProductImage.associate = function (models) {
         models.ProductImage.belongsTo(models.Product, {
             onDelete: "CASCADE",
+            onUpdate: "CASCADE",
             foreignKey: {
                 allowNull: false
             }
