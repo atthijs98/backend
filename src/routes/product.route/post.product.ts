@@ -14,10 +14,8 @@ const insertProduct = async (req, res) => {
 
 const editProduct = async(req, res) => {
     const id = req.params.id;
-    console.log(req.params);
     const {en_title, original_title, romanized_original_title, runtime, poster, plot, year, price, trailer, directors, images} = req.body;
-    console.log(req.body);
-    const product = await updateProduct(id,en_title, original_title, romanized_original_title, runtime,poster, plot, year, price,trailer, directors, images);
+    const product = await updateProduct(id,en_title, original_title, romanized_original_title, runtime,poster, plot, new Date(year), price,trailer, directors, images);
     return res.json({status: 200, result: {product: product}});
 };
 
